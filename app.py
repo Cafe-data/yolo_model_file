@@ -22,7 +22,7 @@ temp = pathlib.PosixPath
 pathlib.PosixPath = pathlib.WindowsPath
 sys.path.insert(0, './yolov5')
 
-model = joblib.load('./data.pkl')
+model = joblib.load('/Users/melod/graduate_/data.pkl')
 
 cred = credentials.Certificate('emptydesk-d8a8d-firebase-adminsdk-3rjtx-bc7b07c657.json')
 firebase_admin.initialize_app(cred,{
@@ -41,8 +41,9 @@ def inference():
     results = model(data)
     model_out = results.pandas().xyxy[0]
     total = model_out['name'].count()
+    current_time = time.strftime('%H_%M_%S')
     empty_seat_num = model_out['name'].value_counts()['empty']
-    ref.update({'ediya':{'total': total, "empty":empty_seat_num}})
+    ref.update({'ediya': {current_time: {'total': str(total), "empty":str(empty_seat_num)}}})
     return {'total': str(total), 'empty': str(empty_seat_num)}
 
 
