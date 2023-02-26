@@ -20,9 +20,9 @@ from torchvision import transforms
 app = Flask(__name__)
 #temp = pathlib.PosixPath
 #pathlib.PosixPath = pathlib.WindowsPath
-sys.path.insert(0, '/home/ubuntu/git/yolo_model_file/yolov5')
+sys.path.insert(0, './yolov5')
 
-model = joblib.load('./data.pkl')
+model = joblib.load('/home/ubuntu/git/yolo_model_file/data.pkl')
 
 cred = credentials.Certificate('emptydesk-d8a8d-firebase-adminsdk-3rjtx-bc7b07c657.json')
 firebase_admin.initialize_app(cred,{
