@@ -22,7 +22,7 @@ temp = pathlib.PosixPath
 pathlib.PosixPath = pathlib.WindowsPath
 sys.path.insert(0, './yolov5')
 
-model = joblib.load('/Users/melod/graduate_/data.pkl')
+model = joblib.load('./data.pkl')
 
 cred = credentials.Certificate('emptydesk-d8a8d-firebase-adminsdk-3rjtx-bc7b07c657.json')
 firebase_admin.initialize_app(cred,{
