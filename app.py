@@ -20,7 +20,7 @@ from torchvision import transforms
 app = Flask(__name__)
 temp = pathlib.PosixPath
 pathlib.PosixPath = pathlib.WindowsPath
-sys.path.insert(0, './yolov5')
+sys.path.insert(0, '/home/ubuntu/git/yolo_model_file/yolov5')
 
 model = joblib.load('./data.pkl')
 
