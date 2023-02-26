@@ -29,9 +29,10 @@ def inference():
     data = np.array(data['images'], dtype=np.uint8)
     results = model(data)
     model_out = results.pandas().xyxy[0]
-    
+    total = model_out['name'].count()
     empty_seat_num = model_out['name'].value_counts()['empty']
-    return str(empty_seat_num)
+   
+    return {'total': str(total), 'empty': str(empty_seat_num)}
 
 
 if __name__ == '__main__':
