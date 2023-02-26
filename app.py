@@ -8,6 +8,9 @@ import torch
 import numpy as np
 import time
 import joblib
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 from PIL import Image
 from flask import Flask, jsonify, request
 from torchvision import transforms
@@ -18,7 +21,15 @@ app = Flask(__name__)
 temp = pathlib.PosixPath
 pathlib.PosixPath = pathlib.WindowsPath
 sys.path.insert(0, './yolov5')
-model = joblib.load('/Users/melod/graduate_/data.pkl')
+
+model = joblib.load('./data.pkl')
+
+cred = credentials.Certificate('emptydesk-d8a8d-firebase-adminsdk-3rjtx-bc7b07c657.json')
+firebase_admin.initialize_app(cred,{
+    'databaseURL' : 'https://emptydesk-d8a8d-default-rtdb.firebaseio.com/'
+})
+ref = db.reference()
+
 
 model.eval()      
 
@@ -31,7 +42,7 @@ def inference():
     model_out = results.pandas().xyxy[0]
     total = model_out['name'].count()
     empty_seat_num = model_out['name'].value_counts()['empty']
-   
+    ref.update({'ediya':{'total': total, "empty":empty_seat_num}})
     return {'total': str(total), 'empty': str(empty_seat_num)}
 
 
